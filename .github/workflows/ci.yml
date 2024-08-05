@@ -68,9 +68,14 @@ jobs:
 
     - name: Dockerize
       run: |
+        echo "Building Docker image"
         docker build -t ci-case-2 .
+        echo "Listing Docker images"
         docker images
+        echo "Tagging Docker image"
         docker tag ci-case-2:latest ${{ secrets.DOCKER_USERNAME }}/ci-case-2:latest
+        echo "Verifying Docker image tagging"
+        docker images
 
   push:
     runs-on: ubuntu-latest
@@ -88,6 +93,7 @@ jobs:
 
     - name: Push Docker image
       run: |
+        echo "Pushing Docker image"
         docker push ${{ secrets.DOCKER_USERNAME }}/ci-case-2:latest
 
   container-scan:
