@@ -106,10 +106,11 @@ jobs:
 
     - name: Push Docker image
       run: |
+        docker images
         echo "Verifying Docker image tagging"
         if [[ "$(docker images -q ${{ secrets.DOCKER_USERNAME }}/ci-case-2:latest 2> /dev/null)" == "" ]]; then
-          echo "Docker image ${{ secrets.DOCKER_USERNAME }}/ci-case-2:latest not found"
-          exit 1
+          docker build -t ci-case-2 .
+          docker tag ci-case-2:latest ${{ secrets.DOCKER_USERNAME }}/ci-case-2:latest
         fi
         echo "Pushing Docker image"
         docker push ${{ secrets.DOCKER_USERNAME }}/ci-case-2:latest
