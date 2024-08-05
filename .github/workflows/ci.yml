@@ -32,10 +32,14 @@ jobs:
 
     - name: SonarQube Scan
       uses: SonarSource/sonarcloud-github-action@master
-      with:
-        projectBaseDir: .
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        projectBaseDir: .
+        args: >
+          -Dsonar.projectKey=GitHubWorkFlow
+          -Dsonar.organization=GitHubWorkFlow
+          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
 
     - name: Dockerize
       run: |
