@@ -90,7 +90,7 @@ jobs:
 
     - name: Push Docker image
       run: |
-        docker tag ci-case-2 ${{ secrets.DOCKER_USERNAME }}/ci-case-2:latest
+        docker tag ci-case-2:latest ${{ secrets.DOCKER_USERNAME }}/ci-case-2:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/ci-case-2:latest
 
   container-scan:
