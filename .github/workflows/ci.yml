@@ -68,7 +68,9 @@ jobs:
 
     - name: Dockerize
       run: |
-        docker build -t my-python-api .
+        docker build -t ci-case-2 .
+        docker images
+        docker tag ci-case-2:latest ${{ secrets.DOCKER_USERNAME }}/ci-case-2:latest
 
   push:
     runs-on: ubuntu-latest
@@ -86,8 +88,7 @@ jobs:
 
     - name: Push Docker image
       run: |
-        docker tag my-python-api:latest ${{ secrets.DOCKER_USERNAME }}/my-python-api:latest
-        docker push ${{ secrets.DOCKER_USERNAME }}/my-python-api:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/ci-case-2:latest
 
   container-scan:
     runs-on: ubuntu-latest
@@ -102,4 +103,4 @@ jobs:
 
     - name: Scan Docker image
       run: |
-        trivy image ${{ secrets.DOCKER_USERNAME }}/my-python-api:latest
+        trivy image ${{ secrets.DOCKER_USERNAME }}/ci-case-2:latest
