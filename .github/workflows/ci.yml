@@ -70,11 +70,14 @@ jobs:
       run: |
         echo "Building Docker image"
         docker build -t ci-case-2 .
-        echo "Listing Docker images"
+        echo "Listing Docker images after build"
         docker images
+
+    - name: Tag Docker Image
+      run: |
         echo "Tagging Docker image"
         docker tag ci-case-2:latest ${{ secrets.DOCKER_USERNAME }}/ci-case-2:latest
-        echo "Verifying Docker image tagging"
+        echo "Listing Docker images after tagging"
         docker images
 
   push:
